@@ -1,5 +1,5 @@
 # Makefile for Randomized Algorithms
-CXXFLAGS = -Wall -g
+CXXFLAGS = -Wall -g -O2
 CXX=g++
 
 analyse: analyse.o BloomFilter.o SkipList.o RBST.o
@@ -14,4 +14,4 @@ SkipList.o: SkipList.cpp SkipList.hpp
 RBST.o: RBST.cpp RBST.hpp
 
 clean:
-	rm -f *.o core analyse
+	rm -f *.o *.dat *.ps core analyse

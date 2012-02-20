@@ -84,10 +84,10 @@ void BloomFilter::add(const Key& key) {
     unsigned long keyHash2 = hash2(key);
     unsigned long hash1Mask = 1 << (keyHash1 % m_pocketSize);
     unsigned long hash2Mask = 1 << (keyHash2 % m_pocketSize);
-    unsigned long hash1Pocket = floor(keyHash1/m_pocketSize);
-    unsigned long hash2Pocket = floor(keyHash2/m_pocketSize);
-    m_tickBook[hash1Pocket] = m_tickBook[hash1Pocket] | hash1Mask;
-    m_tickBook[hash2Pocket] = m_tickBook[hash2Pocket] | hash2Mask;
+    unsigned long hash1Pocket = keyHash1/m_pocketSize;
+    unsigned long hash2Pocket = keyHash2/m_pocketSize;
+    m_tickBook[hash1Pocket] |= hash1Mask;
+    m_tickBook[hash2Pocket] |= hash2Mask;
 }
 
 
@@ -124,8 +124,8 @@ void BloomFilter::del(const Key& key) {
     unsigned long hash2Mask = ~(1 << (keyHash2 % m_pocketSize));
     unsigned long hash1Pocket = floor(keyHash1/m_pocketSize);
     unsigned long hash2Pocket = floor(keyHash2/m_pocketSize);
-    m_tickBook[hash1Pocket] = m_tickBook[hash1Pocket] & hash1Mask;
-    m_tickBook[hash2Pocket] = m_tickBook[hash2Pocket] & hash2Mask;
+    m_tickBook[hash1Pocket] &= hash1Mask;
+    m_tickBook[hash2Pocket] &= hash2Mask;
 }
 
 
